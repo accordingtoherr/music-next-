@@ -2,15 +2,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react';
 
+interface ISongData {
+name: string,
+artist: string,
+link: string,
+image: string
+id: any
+label: string
+}
+
 export default function Songs(dataItem) {
     const [songs, setSongs] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
-
-    const getSongs = async () => {
-
-        setSongs(dataItem)
-    }
 
     const handleSearch = (newSearchQuery) => {
         setSearchQuery(newSearchQuery)
@@ -20,7 +24,6 @@ export default function Songs(dataItem) {
         })
         setSongs(newDataArray)
     }
-    // useEffect(() => { getSongs() }, [getSongs]);
 
     const updateSearch = (e) => {
         handleSearch(e.target.value)
@@ -44,7 +47,7 @@ export default function Songs(dataItem) {
 
                 <button type="submit" className="button" data-testid="clear" onClick={handleSearch}>Search</button>
             </form>
-            {dataItem.dataItem.map((i, index) => (
+            {dataItem.dataItem.map((i: ISongData, index) => (
                 <div key={index} className="container">
                     <h1>{i["im:name"].label}</h1>
                     <h2>{i["im:artist"].label}</h2>
