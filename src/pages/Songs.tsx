@@ -1,14 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import css from './Songs.module.scss'
 import { useState } from 'react';
 
 interface ISongData {
-name: string,
-artist: string,
-link: string,
-image: string
-id: any
-label: string
+    name: string,
+    artist: string,
+    link: string,
+    image: string
+    id: any
+    label: string
 }
 
 export default function Songs(dataItem) {
@@ -31,8 +32,8 @@ export default function Songs(dataItem) {
 
 
     return (
-        <div>
 
+        <div className={css.cont}>
             <form className="searchform"  >
                 <input
                     className="search"
@@ -52,12 +53,13 @@ export default function Songs(dataItem) {
                     <h1>{i["im:name"].label}</h1>
                     <h2>{i["im:artist"].label}</h2>
                     <Image height="150px" width="150px" alt="cover image" src={i["im:image"][1].label}></Image>
+                    <div></div>
                     <Link href={i.id.label}>Buy Now</Link>
 
                 </div>
             ))}
-
         </div>
+
 
 
 
@@ -66,16 +68,10 @@ export default function Songs(dataItem) {
 }
 
 
-
-
-
-
-
-
-Songs.getInitialProps = async () => {
+export const getStaticProps = async () => {
     const response = await fetch(`https://itunes.apple.com/us/rss/topalbums/limit=100/json`)
     const data = await response.json();
     const dataItem = data.feed.entry
-    return { dataItem: dataItem }
+    return { props: { dataItem: dataItem } }
 
 }
