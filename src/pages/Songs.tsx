@@ -1,16 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import css from './Songs.module.scss'
+import React from 'react';
+// import css from './Songs.module.scss'
 import { useState } from 'react';
 
-interface ISongData {
-    name: string,
-    artist: string,
-    link: string,
-    image: string
-    id: any
-    label: string
-}
+// export interface ISongData {
+//     name: string,
+//     artist: string,
+//     link: string,
+//     image: string
+//     id: any
+//     label: string
+// }
 
 export default function Songs(dataItem) {
     const [songs, setSongs] = useState([]);
@@ -33,7 +34,7 @@ export default function Songs(dataItem) {
 
     return (
 
-        <div className={css.cont}>
+        <div>
             <form className="searchform"  >
                 <input
                     className="search"
@@ -48,7 +49,7 @@ export default function Songs(dataItem) {
 
                 <button type="submit" className="button" data-testid="clear" onClick={handleSearch}>Search</button>
             </form>
-            {dataItem.dataItem.map((i: ISongData, index) => (
+            {dataItem.dataItem.map((i,index) => (
                 <div key={index} className="container">
                     <h1>{i["im:name"].label}</h1>
                     <h2>{i["im:artist"].label}</h2>
